@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html ng-app="stockViewer">
+<head>
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="lib/bootstrap/css/bootstrap-mod.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/page.css"/>
+    <meta charset=utf-8/>
+</head>
+<body ng-controller="MainCtrl">
+
+<div class="container" ng-class="data.loadingState">
+
+    <div class="page-header">
+        <h1>
+            Meine Aktien
+            <small><span class="last-updated">{{ data.lastUpdated | date:'dd.MM.yyyy HH:mm' }} Uhr</span></small>
+        </h1>
+    </div>
+
+    <div class="status-waiting text-center alert alert-info">
+        Aktienkurse werden geladen... <br />
+        <img src="img/ajax-loader.gif" />
+    </div>
+
+    <div class="status-error text-center alert alert-error">
+        Beim Laden der Aktienkurse ist leider ein Fehler aufgetreten. Bitte schließe diese Seite/Tab und versuche es noch einmal. <br />
+        Wenn das nicht hilft, dann kannst du Holger eine E-Mail schicken. <a ng-href="{{ data.errorEmail }}">Klicke dazu hier</a>
+    </div>
+
+    <table class="stock-table table table-striped table-bordered table-hover" ng-controller="TableCtrl">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <!--<th>Symbol</th>-->
+            <th>Anzahl</th>
+            <th class="money-head">Kaufkurs</th>
+            <th class="money-head">Invest</th>
+            <th class="money-head">Kurs</th>
+            <th class="money-head">Jahresspanne</th>
+            <th class="money-head" colspan="2">Kursgewinn</th>
+            <th class="money-head">Depotwert</th>
+        </tr>
+
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="stock in data.stocks" ng-controller="StockLoopCtrl">
+            <td>
+                <a ng-href="{{ link }}" target="_blank">
+                    <span class="name">{{ name }}</span>
+                    <span class="buying-Date">({{ buyingDate | date:'dd.MM.yyyy'}}) </span>
+                </a>
+            </td>
+            <!--<td>{{ symbol }}</td>-->
+            <td>{{ amount }}</td>
+            <td class="money-value">{{ buyingRate | inEURO }}</td>
+            <td class="money-value">{{ invest | inEURO }}</td>
+            <td class="money-value">{{ rate | inEURO }}</td>
+            <td class="money-value">{{ yearLow | inEURO }} - {{ yearHigh | inEURO }}</td>
+            <td class="money-value" ng-class="winClass">{{ winAbs | inEURO}}</td>
+            <td class="money-value" ng-class="winClass">{{ winPercent | inPercent }}</td>
+            <td class="money-value">{{ depotValue | inEURO }}</td>
+        </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Summe</td>
+                <td class="money-value">{{ sumInvest | inEURO}}</td>
+                <td colspan="2"></td>
+                <td class="money-value" ng-class="sumWinClass">{{ sumWinAbs | inEURO}}</td>
+                <td class="money-value" ng-class="sumWinClass">{{ sumWinPercent | inPercent}}</td>
+                <td class="money-value">{{ sumDepotValue | inEURO }}</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="buttons text-center">
+        <button class="btn btn-primary btn-large" ng-click="print()"><i class="icon-print icon-white"></i> Drucken</button>
+    </div>
+</div>
+
+<script src="lib/angular/angular.min.js"></script>
+<script src="js/app-sample.js"></script>
+<script src="js/StockData-sample.js"></script>
+<script src="js/StockService.js"></script>
+<script src="js/filter.js"></script>
+<script src="js/controller.js"></script>
+</body>
+</html>

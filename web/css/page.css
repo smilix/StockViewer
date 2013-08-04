@@ -1,0 +1,81 @@
+body {
+  font-size: 16px;
+}
+.container {
+  width: 99%;
+}
+.last-updated {
+  /*font-weight: bold;*/
+}
+.positive {
+  color: #090;
+}
+
+.negative {
+  color: #b80000;
+}
+
+.buying-Date {
+  font-size: 14px;
+  color: #777777;
+}
+.table .money-head {
+  text-align: center;
+}
+.table .money-value {
+  text-align: right;
+}
+
+.table-bordered tfoot td {
+  border-top-width: 6px;
+  border-top-style: double;
+}
+
+.buttons {
+  padding-top: 10px;
+}
+.status-waiting,
+.status-error {
+  display: none;
+  width: 80%;
+  min-width: 400px;
+  margin:100px auto;
+  padding: 30px;
+
+  /*display: none;*/
+}
+
+/* loading state styling */
+.loading .stock-table,
+.loading .last-updated,
+.error .stock-table,
+.error .last-updated {
+  display: none;
+}
+.loading .status-waiting {
+  display: block;
+}
+.error .status-error {
+  display: block;
+}
+
+
+/* special print styling */
+@media print {
+  body {
+    font-size: 14px;
+  }
+
+  .buttons {
+    display: none;
+  }
+
+  table.table, .table td, .table tr {
+    border-radius: 0;
+  }
+
+  .buying-Date {
+    font-size: 12px;
+    color: #000;
+  }
+}
