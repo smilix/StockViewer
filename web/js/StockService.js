@@ -56,8 +56,8 @@
       this.load = function () {
         $log.info('Loading stocks');
 
-        var yqlBaseUrl = window.location.protocol
-          + '//query.yahooapis.com/v1/public/yql?q={query}&format=json&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=JSON_CALLBACK';
+
+        var yqlBaseUrl = 'https://query.yahooapis.com/v1/public/yql?q={query}&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=JSON_CALLBACK';
         var queryTemplate = 'select Symbol, Name, LastTradePriceOnly, YearLow, YearHigh from yahoo.finance.quotes where symbol in ({symbols})';
 
         var yahooSymbols = StockData.map(function (stock) {
